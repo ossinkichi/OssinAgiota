@@ -11,16 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('accounts', function (Blueprint $table) {
+        Schema::create('tags', function (Blueprint $table) {
             $table->id();
-            $table->integer('client_id');
+            $table->varchar('name')->unique();
             $table->text('description')->nullable();
-            $table->decimal('value', 15, 2)->default(0.00);
-            $table->string('status')->default('pendente');
-            $table->integer('date_of_paid');
-            $table->decimal('paid_value', 15, 2)->default(0.00);
-            $table;
-            $table->json('tags')->nullable();
+            $table->string('color')->nullable();
             $table->timestamps();
         });
     }
@@ -30,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('accounts');
+        Schema::dropIfExists('tags');
     }
 };
