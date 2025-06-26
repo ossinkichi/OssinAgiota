@@ -16,10 +16,11 @@ return new class extends Migration
             $table->integer('client_id');
             $table->text('description')->nullable();
             $table->decimal('value', 15, 2)->default(0.00);
-            $table->string('status')->default('pendente');
+            $table->integer('installments')->default(1);
             $table->integer('date_of_paid');
             $table->decimal('paid_value', 15, 2)->default(0.00);
-            $table;
+            $table->integer('installemnts_paid')->default(0);
+            $table->string('status')->default('pendente');
             $table->json('tags')->nullable();
             $table->timestamps();
         });
