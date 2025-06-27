@@ -14,6 +14,13 @@ class UsersController extends Controller
             'email' => 'nullable',
             'password' => 'string|min:6'
         ]);
+
+        if ($form->fails()) {
+            return \response()->json([
+                'message' => 'Dados inválidos',
+                'errors' => $form->errors()
+            ], 422);
+        }
     }
 
     public function update() {}
