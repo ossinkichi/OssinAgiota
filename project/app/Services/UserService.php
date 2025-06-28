@@ -7,6 +7,7 @@ use App\Models\UserModel;
 use App\DTOs\RegisterUserDto;
 use App\DTOs\UpdateUserDto;
 use Exception;
+use Illuminate\Support\Facades\Hash;
 
 class UserService
 {
@@ -29,7 +30,7 @@ class UserService
             throw new \Exception('Senha ou usuário incorretos!');
         }
 
-        if (!password_verify($userDto->password, $user->password)) {
+        if (!Hash::check($userDto->password, $user->password)) {
             throw new Exception('Senha ou usuário incorretos!');
         }
 

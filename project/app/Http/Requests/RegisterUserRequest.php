@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use App\DTOs\RegisterUserDto;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Hash;
 
 class RegisterUserRequest extends FormRequest
 {
@@ -44,7 +45,7 @@ class RegisterUserRequest extends FormRequest
         return new RegisterUserDto(
             $this->input('name'),
             $this->input('email'),
-            \password_hash($this->input('password'), PASSWORD_DEFAULT),
+            Hash::make($this->input('password')),
         );
     }
 }
