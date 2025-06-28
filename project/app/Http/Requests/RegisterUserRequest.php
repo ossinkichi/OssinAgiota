@@ -2,10 +2,10 @@
 
 namespace App\Http\Requests;
 
-use App\DTOs\UserDto;
+use App\DTOs\RegisterUserDto;
 use Illuminate\Foundation\Http\FormRequest;
 
-class UserRequest extends FormRequest
+class RegisterUserRequest extends FormRequest
 {
     public function authorize(): bool
     {
@@ -41,7 +41,7 @@ class UserRequest extends FormRequest
 
     public function toDTO()
     {
-        return new UserDto(
+        return new RegisterUserDto(
             $this->input('name'),
             $this->input('email'),
             \password_hash($this->input('password'), PASSWORD_DEFAULT),

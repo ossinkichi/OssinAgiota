@@ -2,27 +2,38 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
+use App\Services\UserService;
+use Illuminate\Http\JsonResponse;
+use App\Http\Requests\LoginUserRequest;
+use App\Http\Requests\RegisterUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 
 class UsersController extends Controller
 {
-    public function create(Request $req)
+    public function create(RegisterUserRequest $ruq, UserService $service): JsonResponse
     {
-        $form = Validator::make($req->all(), [
-            'name' => 'required|string|min:3',
-            'email' => 'nullable',
-            'password' => 'required|string|min:6',
-            'password_confirmation' => 'required|string|min:6|same:password'
-        ]);
+        $service->create($ruq->toDto());
 
-        if ($form->fails()) {
-            return \response()->json([
-                'message' => 'Dados inválidos',
-                'errors' => $form->errors()
-            ], 422);
-        }
+        return response()->json([], 201);
     }
 
-    public function update() {}
+    public function login(LoginUserRequest $lur, UserService $service): JsonResponse
+    {
+        $user = $service->login($lur->toDTO());
+
+        return \response()->json([
+            'message' => 'Usuário logado com sucesso!',
+            'user' => $user,
+        ], 200);
+    }
+
+    public function update(UpdateUserRequest $uur, UserService $service): JsonResponse
+    {
+        $user = $service->update($uur->toDTO());
+
+        return \response()->json([
+            'message' => 'Usuário atualizado com sucesso!',
+            'user' => $user
+        ], 200);
+    }
 }
