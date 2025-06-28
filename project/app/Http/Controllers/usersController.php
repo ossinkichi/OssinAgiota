@@ -12,7 +12,8 @@ class UsersController extends Controller
         $form = Validator::make($req->all(), [
             'name' => 'required|string|min:3',
             'email' => 'nullable',
-            'password' => 'string|min:6'
+            'password' => 'required|string|min:6',
+            'password_confirmation' => 'required|string|min:6|same:password'
         ]);
 
         if ($form->fails()) {
