@@ -14,6 +14,7 @@ class Kernel extends ConsoleKernel
         \App\Console\Commands\MakeDTO::class,
         \App\Console\Commands\MakeRequest::class,
         \App\Console\Commands\MakeService::class,
+        \App\Console\Commands\MakeEntity::class,
     ];
 
     /**

@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use App\DTOs\LoginUserDto;
-use App\Models\UserModel;
+use App\Models\Users;
 use App\DTOs\RegisterUserDto;
 use App\DTOs\UpdateUserDto;
 use Exception;
@@ -11,9 +11,9 @@ use Illuminate\Support\Facades\Hash;
 
 class UserService
 {
-    public function create(RegisterUserDto $userDto): UserModel
+    public function create(RegisterUserDto $userDto): Users
     {
-        return UserModel::create(
+        return Users::create(
             [
                 'name' => $userDto->name,
                 'email' => $userDto->email,
@@ -22,9 +22,9 @@ class UserService
         );
     }
 
-    public function login(LoginUserDto $userDto): UserModel
+    public function login(LoginUserDto $userDto): Users
     {
-        $user = UserModel::where('email or name', $userDto->user)->first();
+        $user = Users::where('email', $userDto->user)->orWhere('name', $userDto->user)->first();
 
         if (!$user) {
             throw new \Exception('Senha ou usuário incorretos!');
@@ -37,9 +37,9 @@ class UserService
         return $user;
     }
 
-    public function update(UpdateUserDto $userDto): UserModel
+    public function update(UpdateUserDto $userDto): Users
     {
-        return UserModel::where('id', $userDto->id)->update(
+        return Users::where('id', $userDto->id)->update(
             [
                 'name' => $userDto->name,
                 'email' => $userDto->email,
