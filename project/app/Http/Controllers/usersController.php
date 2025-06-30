@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\DTOs\UserDto;
 use App\Services\UserService;
 use Illuminate\Http\JsonResponse;
 use App\Http\Requests\LoginUserRequest;
@@ -20,10 +21,11 @@ class UsersController extends Controller
     public function login(LoginUserRequest $lur, UserService $service): JsonResponse
     {
         $user = $service->login($lur->toDTO());
+        $user = UserDto::make($user->toArray());
 
         return \response()->json([
             'message' => 'Usuário logado com sucesso!',
-            'user' => $user,
+            'user' => $user->JsonSerialize(),
         ], 200);
     }
 
