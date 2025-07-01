@@ -2,11 +2,9 @@
 
 namespace App\DTOs;
 
-class UpdateUserDto
+class ShowUserDto
 {
     public function __construct(
         public int $id,
-        public string $name,
-        public ?string $email,
     ) {}
 }

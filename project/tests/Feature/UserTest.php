@@ -2,12 +2,15 @@
 
 namespace Tests\Feature;
 
+use DateTime;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class UserTest extends TestCase
 {
+
+    use RefreshDatabase;
 
     public function testRegister(): void
     {
@@ -24,7 +27,7 @@ class UserTest extends TestCase
 
     public function testLogin(): void
     {
-        $this->testRegister();;
+        $this->testRegister();
 
         $this->post(
             'api/user/login',
@@ -34,10 +37,13 @@ class UserTest extends TestCase
             ]
         )->assertJson([
             'message' => 'Usuário logado com sucesso!',
-            'user' > [
+            'user' => [
                 'id' => 1,
                 'name' => 'Test User',
-                'email' => ''
+                'email' => null,
+                'email_verified' => 0,
+                'created_at' => '2025/07/01',
+                'updated_at' => '2025/07/01'
             ]
         ])->assertStatus(200);
     }
@@ -49,15 +55,26 @@ class UserTest extends TestCase
         $this->put(
             'api/user/update',
             [
+                'id' => 1,
                 'name' => 'Updated User',
                 'email' => 'emailUpdated@gmail.com',
             ]
-        )->assertJson([
-            'message' => 'Usuário atualizado com sucesso!',
+        )->assertJson([])->assertStatus(201);
+    }
+
+    public function testShow(): void
+    {
+        $this->testRegister();
+
+        $this->get('api/user/show/1')->assertJson([
+            'message' => 'Usuário encontrado com sucesso!',
             'user' => [
                 'id' => 1,
-                'name' => 'Updated User',
-                'email' => 'emailUpdated@gmail.com'
+                'name' => 'Test User',
+                'email' => null,
+                'email_verified' => 0,
+                'created_at' => (new DateTime())->format('Y/m/d'),
+                'updated_at' => (new DateTime())->format('Y/m/d')
             ]
         ])->assertStatus(200);
     }

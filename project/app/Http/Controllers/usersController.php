@@ -2,15 +2,29 @@
 
 namespace App\Http\Controllers;
 
+use App\DTOs\ShowUserDto;
 use App\DTOs\UserDto;
 use App\Services\UserService;
 use Illuminate\Http\JsonResponse;
 use App\Http\Requests\LoginUserRequest;
 use App\Http\Requests\RegisterUserRequest;
+use App\Http\Requests\ShowUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 
 class UsersController extends Controller
 {
+
+    public function show(int $id, UserService $service): JsonResponse
+    {
+        $user = $service->show($id);
+        $user = UserDto::make($user->toArray());
+
+        return response()->json([
+            'message' => 'Usuário encontrado com sucesso!',
+            'user' => $user->JsonSerialize()
+        ]);
+    }
+
     public function create(RegisterUserRequest $ruq, UserService $service): JsonResponse
     {
         $service->create($ruq->toDto());
@@ -33,9 +47,6 @@ class UsersController extends Controller
     {
         $user = $service->update($uur->toDTO());
 
-        return \response()->json([
-            'message' => 'Usuário atualizado com sucesso!',
-            'user' => $user
-        ], 200);
+        return \response()->json([], 201);
     }
 }

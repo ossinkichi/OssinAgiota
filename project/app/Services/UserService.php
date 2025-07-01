@@ -5,12 +5,19 @@ namespace App\Services;
 use App\DTOs\LoginUserDto;
 use App\Models\Users;
 use App\DTOs\RegisterUserDto;
+use App\DTOs\ShowUserDto;
 use App\DTOs\UpdateUserDto;
 use Exception;
 use Illuminate\Support\Facades\Hash;
 
 class UserService
 {
+
+    public function show(int $id)
+    {
+        return Users::findOrFail($id);
+    }
+
     public function create(RegisterUserDto $userDto): Users
     {
         return Users::create(
@@ -39,11 +46,13 @@ class UserService
 
     public function update(UpdateUserDto $userDto): Users
     {
-        return Users::where('id', $userDto->id)->update(
+        Users::where('id', $userDto->id)->update(
             [
                 'name' => $userDto->name,
                 'email' => $userDto->email,
             ]
         );
+
+        return Users::findOrFail($userDto->id);
     }
 }
