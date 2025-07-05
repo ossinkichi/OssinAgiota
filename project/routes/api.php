@@ -12,5 +12,5 @@ Route::put('/user/update', UsersController::class . '@update');
 
 // Client routes
 Route::get('/clients', ClientsController::class . '@list');
-Route::post('client/register', ClientsController::class . '@create');
-Route::put('client/update', ClientsController::class . '@update');
+Route::post('/client/register', ClientsController::class . '@create');
+Route::put('/client/update', ClientsController::class . '@update');

@@ -17,14 +17,14 @@ class UpdateClientRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'id' => 'required/integer/exists:clients,id',
-            'name' => 'required/string',
-            'email' => 'nullable/email',
-            'phone_1' => 'nullable/string',
-            'phone_2' => 'nullable/string',
-            'observation' => 'nullable/string',
-            'tags' => 'nullable/array',
-            'tags.*' => 'integer',
+            'id' => 'required|integer|exists:clients,id',
+            'name' => 'required|string',
+            'email' => 'nullable|email',
+            'phone_1' => 'nullable|string',
+            'phone_2' => 'nullable|string',
+            'observation' => 'nullable|string',
+            'tags' => 'nullable|array',
+            'tags.*' => 'integer|nullable',
         ];
     }
 

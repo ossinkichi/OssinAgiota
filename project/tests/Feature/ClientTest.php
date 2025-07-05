@@ -12,7 +12,7 @@ class ClientTest extends TestCase
 
     public function testClientRegister(): void
     {
-        $response = $this->post(uri: 'client/register', data: [
+        $response = $this->post(uri: '/api/client/register', data: [
             'name' => 'Test Client',
             'email' => '',
             'phone_1' => '123456789',
@@ -31,7 +31,7 @@ class ClientTest extends TestCase
     {
         $this->testClientRegister();
 
-        $response = $this->get(uri: '/clients');
+        $response = $this->get(uri: '/api/clients');
 
         $response->assertStatus(200)->assertJson(
             [
@@ -55,7 +55,7 @@ class ClientTest extends TestCase
     {
         $this->testClientRegister();
 
-        $response = $this->put(uri: '/client/update', data: [
+        $response = $this->put(uri: 'api/client/update', data: [
             'id' => 1,
             'name' => 'Updated Client',
             'email' => 'test@gmail.com',

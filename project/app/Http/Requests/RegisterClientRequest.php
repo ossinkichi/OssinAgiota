@@ -15,14 +15,14 @@ class RegisterClientRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'string/required/max:255',
-            'email' => 'email/nullable',
-            'phone_1' => 'string/nullable/max:20',
-            'phone_2' => 'string/nullable/max:20',
-            'address' => 'string/nullable',
-            'observation' => 'string/nullable',
-            'tags' => 'array/nullable',
-            'tags.*' => 'integer', // Cada tag deve ser uma string
+            'name' => 'required|string|min:3',
+            'email' => 'email|nullable',
+            'phone_1' => 'string|nullable|min:9|max:20',
+            'phone_2' => 'string|nullable|min:9|max:20',
+            'address' => 'string|nullable',
+            'observation' => 'string|nullable',
+            'tags' => 'array|nullable',
+            'tags.*' => 'integer|nullable', // Cada tag deve ser uma string
         ];
     }
 
