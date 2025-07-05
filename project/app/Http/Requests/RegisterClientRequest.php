@@ -22,7 +22,7 @@ class RegisterClientRequest extends FormRequest
             'address' => 'string/nullable',
             'observation' => 'string/nullable',
             'tags' => 'array/nullable',
-            'tags.*' => 'string|max:255', // Cada tag deve ser uma string
+            'tags.*' => 'integer', // Cada tag deve ser uma string
         ];
     }
 

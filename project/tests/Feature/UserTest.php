@@ -41,7 +41,7 @@ class UserTest extends TestCase
                 'id' => 1,
                 'name' => 'Test User',
                 'email' => null,
-                'email_verified' => 0,
+                'email_verified' => '0',
                 'created_at' => '2025/07/01',
                 'updated_at' => '2025/07/01'
             ]

@@ -4,11 +4,13 @@ namespace App\Services;
 
 use App\DTOs\ClientDto;
 use App\DTOs\RegisterClientDto;
+use App\DTOs\UpdateClientDto;
 use App\Models\Clients;
 
 class ClientService
 {
-    public function getAll() {
+    public function getAll()
+    {
         return Clients::all()->map(fn($client) => ClientDto::make($client->toArray()));
     }
 
@@ -25,5 +27,5 @@ class ClientService
         ]);
     }
 
-    public function update() {}
+    public function update(UpdateClientDto $client) {}
 }
