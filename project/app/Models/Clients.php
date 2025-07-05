@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 
-class ClientsModel extends Model
+class Clients extends Model
 {
     use HasFactory, Notifiable;
 

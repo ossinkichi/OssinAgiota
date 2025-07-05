@@ -25,16 +25,16 @@ class UsersController extends Controller
         ]);
     }
 
-    public function create(RegisterUserRequest $ruq, UserService $service): JsonResponse
+    public function create(RegisterUserRequest $req, UserService $service): JsonResponse
     {
-        $service->create($ruq->toDto());
+        $service->create($req->toDto());
 
         return response()->json([], 201);
     }
 
-    public function login(LoginUserRequest $lur, UserService $service): JsonResponse
+    public function login(LoginUserRequest $req, UserService $service): JsonResponse
     {
-        $user = $service->login($lur->toDTO());
+        $user = $service->login($req->toDTO());
         $user = UserDto::make($user->toArray());
 
         return \response()->json([
@@ -43,9 +43,9 @@ class UsersController extends Controller
         ], 200);
     }
 
-    public function update(UpdateUserRequest $uur, UserService $service): JsonResponse
+    public function update(UpdateUserRequest $req, UserService $service): JsonResponse
     {
-        $user = $service->update($uur->toDTO());
+        $user = $service->update($req->toDTO());
 
         return \response()->json([], 201);
     }
