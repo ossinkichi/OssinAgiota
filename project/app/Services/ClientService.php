@@ -27,5 +27,15 @@ class ClientService
         ]);
     }
 
-    public function update(UpdateClientDto $client) {}
+    public function update(UpdateClientDto $client) {
+        Clients::where('id', $client->id)->update([
+            'name' => $client->name,
+            'email' => $client->email,
+            'phone_1' => $client->phone_1,
+            'phone_2' => $client->phone_2,
+            'address' => $client->address,
+            'observation' => $client->observation,
+            'tags' => json_encode($client->tags ?? []),
+        ]);
+    }
 }

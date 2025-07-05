@@ -13,35 +13,53 @@ class ClientsController extends Controller
 
     public function list(ClientService $service): JsonResponse
     {
-        $response = $service->getAll();
+        try {
 
-        if (!$response) {
-            return \response()->json(data: ['message' => 'Nenhum cliente encontrado.'], status: 404);
+            $response = $service->getAll();
+
+            return \response()->json(data: [
+                'message' => 'Clientes encontrados.',
+                'data' => $response->map(fn($client) => $client->JsonSerialize())
+            ], status: 200);
+        } catch (\Throwable $e) {
+            return \response()->json(data: [
+                'error' => 'Erro ao buscar clientes',
+                'exception' => $e->getMessage(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine()
+            ], status: '500');
         }
-        return \response()->json(data: [
-            'message' => 'Clientes encontrados.',
-            'data' => $response->map(fn($client) => $client->JsonSerialize())
-        ], status: 200);
     }
 
     public function create(RegisterClientRequest $req, ClientService $service): JsonResponse
     {
-        $response = $service->register($req->toDTO());
+        try {
+            $response = $service->register($req->toDTO());
 
-        if (!$response) {
-            return \response()->json(data: ['message' => 'Erro ao cadastrar cliente.'], status: '422');
+            return \response()->json(data: [], status: 201);
+        } catch (\Throwable $e) {
+            return \response()->json(data: [
+                'error' => 'Erro ao cadastrar o cliente',
+                'exception' => $e->getMessage(),
+                'file' => $e->getFile()
+            ], status: '500');
         }
-
-        return \response()->json(data: [], status: 201);
     }
 
-    public function update(UpdateClientRequest $req, ClientService $service):JsonResponse {
-        $response = $service->update($req->toDTO());
+    public function update(UpdateClientRequest $req, ClientService $service): JsonResponse
+    {
 
-        if(!$response){
-            return \response()->json(data: [ 'message' => 'Não foi possivel atualizar os dados do client.'], status:422);
+        try {
+            $response = $service->update($req->toDTO());
+
+            return \response()->json(data: [], status: 201);
+        } catch (\Throwable $e) {
+            return \response()->json(data: [
+                'error' => 'Erro ao atualizar o cliente',
+                'exception' => $e->getMessage(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine()
+            ], status: '500');
         }
-
-        return \response()->json(data:[],status:201);
     }
 }

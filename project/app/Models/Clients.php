@@ -20,4 +20,8 @@ class Clients extends Model
         'observation',
         'tags'
     ];
+
+    protected $casts = [
+    'tags' => 'array',
+    ];
 }

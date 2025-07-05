@@ -25,7 +25,7 @@ class ClientDto
             phone_2: $client['phone_2'],
             address: $client['address'],
             observation: $client['observation'],
-            tags: \json_decode($client['tags'] ?? '[]', \true)
+            tags: is_string($client['tags']) ? json_decode($client['tags'], true) : $client['tags'],
         );
     }
 
@@ -39,7 +39,7 @@ class ClientDto
             'phone_2' => $this->phone_2,
             'address' => $this->address,
             'observation' => $this->observation,
-            'tags' => \json_decode($this->tags ?? '[]', \true)
+            'tags' => $this->tags
         ];
     }
 }

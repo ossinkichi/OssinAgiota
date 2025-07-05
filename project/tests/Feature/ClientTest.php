@@ -12,14 +12,14 @@ class ClientTest extends TestCase
 
     public function testClientRegister(): void
     {
-        $response = $this->post(uri: '/api/client/register', data: [
+        $response = $this->postJson(uri: '/api/client/register', data: [
             'name' => 'Test Client',
             'email' => '',
             'phone_1' => '123456789',
             'phone_2' => '',
             'address' => '123 Test St',
             'observation' => '',
-            'tags' => json_encode([1, 2])
+            'tags' => [1, 2]
         ]);
 
         $response->assertStatus(201)->assertJson(
@@ -39,12 +39,12 @@ class ClientTest extends TestCase
                 'data' => [
                     [
                         'name' => 'Test Client',
-                        'email' => '',
+                        'email' => null,
                         'phone_1' => '123456789',
-                        'phone_2' => '',
+                        'phone_2' => null,
                         'address' => '123 Test St',
-                        'observation' => '',
-                        'tags' => [1, 2]
+                        'observation' => null,
+                        'tags' =>  [1, 2]
                     ]
                 ]
             ]
@@ -55,7 +55,7 @@ class ClientTest extends TestCase
     {
         $this->testClientRegister();
 
-        $response = $this->put(uri: 'api/client/update', data: [
+        $response = $this->putJson(uri: 'api/client/update', data: [
             'id' => 1,
             'name' => 'Updated Client',
             'email' => 'test@gmail.com',
@@ -63,7 +63,7 @@ class ClientTest extends TestCase
             'phone_2' => '123412234',
             'address' => '456 Updated St',
             'observation' => 'isso é apensa um teste',
-            'tags' => json_encode([3, 4])
+            'tags' => [3, 4]
         ]);
 
         $response->assertStatus(201);

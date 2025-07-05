@@ -42,8 +42,8 @@ class UserTest extends TestCase
                 'name' => 'Test User',
                 'email' => null,
                 'email_verified' => '0',
-                'created_at' => '2025/07/01',
-                'updated_at' => '2025/07/01'
+                'created_at' => \date('Y/m/d'),
+                'updated_at' => \date('Y/m/d'),
             ]
         ])->assertStatus(200);
     }
