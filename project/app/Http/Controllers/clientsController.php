@@ -14,7 +14,6 @@ class ClientsController extends Controller
     public function list(ClientService $service): JsonResponse
     {
         try {
-
             $response = $service->getAll();
 
             return \response()->json(data: [
@@ -34,7 +33,7 @@ class ClientsController extends Controller
     public function create(RegisterClientRequest $req, ClientService $service): JsonResponse
     {
         try {
-            $response = $service->register($req->toDTO());
+            $service->register($req->toDTO());
 
             return \response()->json(data: [], status: 201);
         } catch (\Throwable $e) {

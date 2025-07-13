@@ -61,7 +61,7 @@ class RegisterAccountRequest extends FormRequest
     public function toDTO()
     {
         return new RegisterAccountDto(
-            client_id: $this->input('client'),
+            clientId: $this->input('client'),
             description: $this->input('description'),
             value: $this->input('value'),
             installments: $this->input('installments'),

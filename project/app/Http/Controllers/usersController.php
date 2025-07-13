@@ -16,37 +16,73 @@ class UsersController extends Controller
 
     public function show(int $id, UserService $service): JsonResponse
     {
-        $user = $service->show($id);
-        $user = UserDto::make($user->toArray());
+        try {
+            $user = $service->show($id);
+            $user = UserDto::make($user->toArray());
 
-        return response()->json([
-            'message' => 'Usuário encontrado com sucesso!',
-            'user' => $user->JsonSerialize()
-        ]);
+            return response()->json(data: [
+                'message' => 'Usuário encontrado com sucesso!',
+                'user' => $user->JsonSerialize()
+            ], status: 200);
+        } catch (\Throwable $e) {
+            return response()->json(data: [
+                'message' => 'Erro ao buscar usuário: ' . $e->getMessage(),
+                'exception' => $e->getMessage(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine()
+            ], status: 500);
+        }
     }
 
     public function create(RegisterUserRequest $req, UserService $service): JsonResponse
     {
-        $service->create($req->toDto());
+        try {
+            $service->create($req->toDto());
 
-        return response()->json([], 201);
+            return response()->json(data: [], status: 201);
+        } catch (\Throwable $e) {
+            return response()->json(data: [
+                'message' => 'Erro ao criar usuário: ' . $e->getMessage(),
+                'exception' => $e->getMessage(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine()
+            ], status: 500);
+        }
     }
 
     public function login(LoginUserRequest $req, UserService $service): JsonResponse
     {
-        $user = $service->login($req->toDTO());
-        $user = UserDto::make($user->toArray());
+        try {
+            $user = $service->login($req->toDTO());
+            $user = UserDto::make($user->toArray());
 
-        return \response()->json([
-            'message' => 'Usuário logado com sucesso!',
-            'user' => $user->JsonSerialize(),
-        ], 200);
+            return \response()->json([
+                'message' => 'Usuário logado com sucesso!',
+                'user' => $user->JsonSerialize(),
+            ], 200);
+        } catch (\Throwable $e) {
+            return \response()->json(data: [
+                'message' => 'Erro ao logar usuário: ' . $e->getMessage(),
+                'exception' => $e->getMessage(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine()
+            ], status: 500);
+        }
     }
 
     public function update(UpdateUserRequest $req, UserService $service): JsonResponse
     {
-        $user = $service->update($req->toDTO());
+        try {
+            $service->update($req->toDTO());
 
-        return \response()->json([], 201);
+            return \response()->json([], 201);
+        } catch (\Throwable $e) {
+            return \response()->json(data: [
+                'message' => 'Erro ao atualizar usuário: ' . $e->getMessage(),
+                'exception' => $e->getMessage(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine()
+            ], status: 500);
+        }
     }
 }

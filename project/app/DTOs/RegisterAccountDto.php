@@ -5,7 +5,7 @@ namespace App\DTOs;
 class RegisterAccountDto
 {
     public function __construct(
-        public int $client_id,
+        public int $clientId,
         public ?string $description = null,
         public ?string $value = '0,00',
         public int $installments = 1,
