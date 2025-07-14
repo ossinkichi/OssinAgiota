@@ -32,14 +32,12 @@ class accountTest extends TestCase
         $this->testClientRegister();
 
         $response = $this->postJson(uri: '/api/accounts/create', data: [
-            'client_id' => 1,
+            'client' => 1,
             'description' => 'Test Account',
             'value' => 100.00,
             'installments' => 1,
-            'date_of_paid' => '2023-10-01',
-            'paid_value' => 0.00,
-            'installemnts_paid' => 0,
-            'status' => 'pending',
+            'date_of_paid' => '01',
+            'status' => 'pendente',
             'tags' => [1, 2]
         ]);
 
@@ -54,7 +52,25 @@ class accountTest extends TestCase
 
         $response = $this->get('/api/accounts/1');
 
-        $response->assertStatus(200);
+        $response->assertStatus(200)->assertJson(
+            value: [
+                'data' => [
+                    '*' => [
+                        'id' => 1,
+                        'description' => 'Test Account',
+                        'value' => 100.00,
+                        'installments' => 1,
+                        'date_of_paid' => '01',
+                        'paid_value' => 0.00,
+                        'installemnts_paid' => 0,
+                        'status' => 'pending',
+                        'tags' => [1, 2],
+                        'created_at' => $this->anything(),
+                        'updated_at' => $this->anything(),
+                    ]
+                ]
+            ]
+        );
     }
 
     public function testUpdateAccount(): void
@@ -62,13 +78,12 @@ class accountTest extends TestCase
         $this->testCreateAccount();
 
         $response = $this->putJson(uri: '/api/accounts/update', data: [
-            'id' => 1,
-            'client_id' => 1,
+            'account' => 1,
+            'client' => 1,
             'description' => 'Updated Account',
             'value' => 150.00,
             'installments' => 2,
-            'date_of_paid' => '2023-10-02',
-            'status' => 'active',
+            'date_of_paid' => '07',
             'tags' => [1, 3]
         ]);
 
@@ -81,12 +96,12 @@ class accountTest extends TestCase
     {
         $this->testCreateAccount();
 
-        $response = $this->postJson(uri: '/api/accounts/paid', data: [
+        $response = $this->putJson(uri: '/api/accounts/paid', data: [
             'id' => 1,
             'client_id' => 1,
             'paid_value' => 100.00,
             'installemnts_paid' => 1,
-            'status' => 'paid'
+            'status' => 'pendente'
         ]);
 
         $response->assertStatus(201)->assertJson(

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\DTOs\AccountDto;
 use App\Http\Requests\PaidAccountRequest;
-use App\Http\Requests\PushAccountRequest;
+use App\Http\Requests\GetAccountRequest;
 use App\Http\Requests\RegisterAccountRequest;
 use App\Http\Requests\UpdateAccountRequest;
 use App\Services\AccountService;
@@ -39,14 +39,14 @@ class AccountsController extends Controller
         try {
             $service->create($req->toDTO());
 
-            \response()->json(data: [], status: 201);
+            return \response()->json(data: [], status: 201);
         } catch (\Throwable $e) {
             return \response()->json(data: [
                 'error' => 'Erro ao cadastrar a conta',
                 'exception' => $e->getMessage(),
                 'file' => $e->getFile(),
                 'line' => $e->getLine()
-            ], status: 500);
+            ], status: 422);
         }
     }
 

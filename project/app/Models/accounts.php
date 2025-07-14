@@ -11,6 +11,7 @@ class Accounts extends Model
     use HasFactory, Notifiable;
 
     protected $fillable = [
+        'client_id',
         'id',
         'description',
         'value',
@@ -20,9 +21,5 @@ class Accounts extends Model
         'paid_value',
         'installments_paid',
         'tags'
-    ];
-
-    protected $hidden = [
-        'client_id'
     ];
 }

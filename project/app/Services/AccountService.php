@@ -25,10 +25,8 @@ class AccountService
             'value' => $dto->value,
             'installments' => $dto->installments,
             'date_of_paid' => $dto->date_of_paid,
-            'paid_value' => $dto->paid_value,
-            'installemnts_paid' => $dto->installemnts_paid,
             'status' => $dto->status,
-            'tags' => json_encode($dto->tags)
+            'tags' => json_encode($dto->tags ?? [])
         ]);
     }
 
@@ -39,7 +37,6 @@ class AccountService
             'value' => $dto->value,
             'installments' => $dto->installments,
             'date_of_paid' => $dto->dateOfPaid,
-            'status' => $dto->status,
             'tags' => json_encode($dto->tags)
         ]);
 

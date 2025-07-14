@@ -15,23 +15,22 @@ class UpdateAccountRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'id' => 'required|integer',
-            'client' => 'required|integer|exists:clients,id',
+            'account' => 'required|integer',
+            'client' => 'required|integer|exists:accounts.client_id,id',
             'description' => 'nullable|string',
             'value' => 'required|numeric|min:0',
             'installments' => 'required|integer|min:1',
-            'date_of_paid' => 'required|string',
-            'status' => 'required|string|in:pendente,pago,atrasado',
+            'date_of_paid' => 'required|string|max:5',
             'tags' => 'nullable|array',
-            'tags.*' => 'string', // Validação para cada tag individual
+            'tags.*' => 'int', // Validação para cada tag individual
         ];
     }
 
     public function messages(): array
     {
         return [
-            'id.required' => 'O campo ID é obrigatório.',
-            'id.integer' => 'O campo ID deve ser um número inteiro.',
+            'account.required' => 'O campo account é obrigatório.',
+            'account.integer' => 'O campo account deve ser um número inteiro.',
             'client.required' => 'O campo cliente é obrigatório.',
             'client.integer' => 'O campo cliente deve ser um número inteiro.',
             'client.exists' => 'O cliente informado não existe.',
@@ -43,14 +42,17 @@ class UpdateAccountRequest extends FormRequest
             'installments.integer' => 'O campo parcelas deve ser um número inteiro.',
             'installments.min' => 'O número de parcelas deve ser pelo menos 1.',
             'date_of_paid.required' => 'O campo data de pagamento é obrigatório.',
-
+            'date_of_paid.string' => 'O campo data de pagamento deve ser uma string.',
+            'date_of_paid.max' => 'O campo data de pagamento não pode ter mais de 5 caracteres.',
+            'tags.array' => 'O campo tags deve ser um array.',
+            'tags.*.int' => 'Cada tag deve ser um número inteiro.',
         ];
     }
 
     public function toDTO()
     {
         return new UpdateAccountDto(
-            id: $this->route('id'),
+            id: $this->route('account'),
             client: $this->input('client'),
             description: $this->input('description'),
             value: $this->input('value'),
