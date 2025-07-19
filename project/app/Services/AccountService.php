@@ -7,12 +7,13 @@ use App\DTOs\RegisterAccountDto;
 use App\DTOs\UpdateAccountDto;
 use App\Http\Requests\PaidAccountRequest;
 use App\Models\Accounts;
+use Illuminate\Database\Eloquent\Collection;
 use Tests\Feature\accountTest;
 
 class AccountService
 {
 
-    public function get(int $clientId): Accounts
+    public function getAll(int $clientId): Collection
     {
         return Accounts::where('client_id', $clientId)->get();
     }
@@ -30,17 +31,15 @@ class AccountService
         ]);
     }
 
-    public function update(UpdateAccountDto $dto): Accounts
+    public function update(UpdateAccountDto $dto): void
     {
-        Accounts::where('id', $dto->id)->where('client_id', $dto->client)->update([
+        Accounts::where('id', $dto->id)->update([
             'description' => $dto->description,
             'value' => $dto->value,
             'installments' => $dto->installments,
             'date_of_paid' => $dto->dateOfPaid,
             'tags' => json_encode($dto->tags)
         ]);
-
-        return Accounts::findOrFail($dto->id)->first();
     }
 
     public function paid(PaidAccountDto $dto): Accounts

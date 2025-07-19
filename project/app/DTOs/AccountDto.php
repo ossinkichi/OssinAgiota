@@ -2,19 +2,21 @@
 
 namespace App\DTOs;
 
+use DateTime;
+
 class AccountDto
 {
     public function __construct(
         public int $id,
         public int $client_id,
         public ?string $description = null,
-        public string $value = '0,00',
-        public int $installments = 1,
+        public string $value,
+        public int $installments,
         public string $date_of_paid,
-        public string $paid_value = '0,00',
-        public int $installemnts_paid = 0,
+        public ?string $paid_value = '0,00',
+        public ?int $installemnts_paid = 0,
         public string $status = 'pendente',
-        public ?array $tags = [],
+        public string $tags = '[]',
         public ?string $created_at = null,
         public ?string $updated_at = null
     ) {}
@@ -49,9 +51,19 @@ class AccountDto
             'paid_value' => $this->paid_value,
             'installemnts_paid' => $this->installemnts_paid,
             'status' => $this->status,
-            'tags' => $this->tags,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at
+            'tags' => \json_decode($this->tags, true),
+            'created_at' => self::isDateTime($this->created_at),
+            'updated_at' => self::isDateTime($this->updated_at)
         ];
+    }
+
+    public static function isDateTime($string)
+    {
+        try {
+            $date = new DateTime($string);
+            return $date->format('Y/m/d');
+        } catch (\Throwable $th) {
+            return $string;
+        }
     }
 }

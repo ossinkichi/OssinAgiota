@@ -16,7 +16,7 @@ class AccountsController extends Controller
     public function getAllAccountsOfClient(int $client, AccountService $service): JsonResponse
     {
         try {
-            $response = $service->get(clientId: $client);
+            $response = $service->getAll(clientId: $client);
 
             $accounts = $response->map(fn($account) => AccountDto::make($account->toArray()));
 
@@ -30,7 +30,7 @@ class AccountsController extends Controller
                 'exception' => $e->getMessage(),
                 'file' => $e->getFile(),
                 'line' => $e->getLine()
-            ], status: 500);
+            ], status: 422);
         }
     }
 
@@ -62,7 +62,7 @@ class AccountsController extends Controller
                 'exception' => $e->getMessage(),
                 'file' => $e->getFile(),
                 'line' => $e->getLine()
-            ], status: 500);
+            ], status: 422);
         }
     }
 
@@ -78,7 +78,7 @@ class AccountsController extends Controller
                 'exception' => $e->getMessage(),
                 'file' => $e->getFile(),
                 'line' => $e->getLine()
-            ], status: 500);
+            ], status: 422);
         }
     }
 }

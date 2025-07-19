@@ -16,7 +16,6 @@ class UpdateAccountRequest extends FormRequest
     {
         return [
             'account' => 'required|integer',
-            'client' => 'required|integer|exists:accounts.client_id,id',
             'description' => 'nullable|string',
             'value' => 'required|numeric|min:0',
             'installments' => 'required|integer|min:1',
@@ -31,9 +30,6 @@ class UpdateAccountRequest extends FormRequest
         return [
             'account.required' => 'O campo account é obrigatório.',
             'account.integer' => 'O campo account deve ser um número inteiro.',
-            'client.required' => 'O campo cliente é obrigatório.',
-            'client.integer' => 'O campo cliente deve ser um número inteiro.',
-            'client.exists' => 'O cliente informado não existe.',
             'description.string' => 'A descrição deve ser uma string.',
             'value.required' => 'O campo valor é obrigatório.',
             'value.numeric' => 'O campo valor deve ser um número.',
@@ -52,13 +48,11 @@ class UpdateAccountRequest extends FormRequest
     public function toDTO()
     {
         return new UpdateAccountDto(
-            id: $this->route('account'),
-            client: $this->input('client'),
+            id: $this->input('account'),
             description: $this->input('description'),
             value: $this->input('value'),
             installments: $this->input('installments'),
             dateOfPaid: $this->input('date_of_paid'),
-            status: $this->input('status'),
             tags: $this->input('tags', [])
         );
     }

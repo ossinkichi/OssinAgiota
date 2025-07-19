@@ -55,7 +55,7 @@ class accountTest extends TestCase
         $response->assertStatus(200)->assertJson(
             value: [
                 'data' => [
-                    '*' => [
+                    '0' => [
                         'id' => 1,
                         'description' => 'Test Account',
                         'value' => 100.00,
@@ -77,7 +77,7 @@ class accountTest extends TestCase
     {
         $this->testCreateAccount();
 
-        $response = $this->putJson(uri: '/api/accounts/update', data: [
+        $response = $this->put(uri: '/api/accounts/update', data: [
             'account' => 1,
             'client' => 1,
             'description' => 'Updated Account',
@@ -96,7 +96,7 @@ class accountTest extends TestCase
     {
         $this->testCreateAccount();
 
-        $response = $this->putJson(uri: '/api/accounts/paid', data: [
+        $response = $this->put(uri: '/api/accounts/paid', data: [
             'id' => 1,
             'client_id' => 1,
             'paid_value' => 100.00,
