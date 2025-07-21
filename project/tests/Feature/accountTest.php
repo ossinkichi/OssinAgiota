@@ -54,19 +54,20 @@ class accountTest extends TestCase
 
         $response->assertStatus(200)->assertJson(
             value: [
+                'message' => 'Contas encontradas.',
                 'data' => [
-                    '0' => [
+                    [
                         'id' => 1,
                         'description' => 'Test Account',
-                        'value' => 100.00,
+                        'value' => 100,
                         'installments' => 1,
                         'date_of_paid' => '01',
-                        'paid_value' => 0.00,
-                        'installemnts_paid' => 0,
-                        'status' => 'pending',
+                        'paid_value' => null,
+                        'installemnts_paid' => null,
+                        'status' => 'pendente',
                         'tags' => [1, 2],
-                        'created_at' => $this->anything(),
-                        'updated_at' => $this->anything(),
+                        'created_at' => \date('Y/m/d'),
+                        'updated_at' => \date('Y/m/d'),
                     ]
                 ]
             ]
@@ -96,12 +97,12 @@ class accountTest extends TestCase
     {
         $this->testCreateAccount();
 
-        $response = $this->put(uri: '/api/accounts/paid', data: [
+        $response = $this->put(uri: '/api/accounts/pay', data: [
             'id' => 1,
-            'client_id' => 1,
-            'paid_value' => 100.00,
-            'installemnts_paid' => 1,
-            'status' => 'pendente'
+            'client' => 1,
+            'paidValue' => 100.00,
+            'installemntsPaid' => 1,
+            'status' => 'pago'
         ]);
 
         $response->assertStatus(201)->assertJson(

@@ -18,11 +18,9 @@ class AccountsController extends Controller
         try {
             $response = $service->getAll(clientId: $client);
 
-            $accounts = $response->map(fn($account) => AccountDto::make($account->toArray()));
-
             return \response()->json(data: [
                 'message' => 'Contas encontradas.',
-                'data' => $accounts->map(fn($account) => $account->JsonSerialize()),
+                'data' => $response->map(fn($account) => $account->JsonSerialize()),
             ], status: 200);
         } catch (\Throwable $e) {
             return \response()->json(data: [

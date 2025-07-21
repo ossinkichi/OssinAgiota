@@ -2,20 +2,21 @@
 
 namespace App\Services;
 
-use App\DTOs\PaidAccountDto;
-use App\DTOs\RegisterAccountDto;
-use App\DTOs\UpdateAccountDto;
-use App\Http\Requests\PaidAccountRequest;
+use App\DTOs\AccountDto;
 use App\Models\Accounts;
-use Illuminate\Database\Eloquent\Collection;
+use App\DTOs\PaidAccountDto;
+use App\DTOs\UpdateAccountDto;
 use Tests\Feature\accountTest;
+use App\DTOs\RegisterAccountDto;
+use App\Http\Requests\PaidAccountRequest;
+use Illuminate\Database\Eloquent\Collection;
 
 class AccountService
 {
 
     public function getAll(int $clientId): Collection
     {
-        return Accounts::where('client_id', $clientId)->get();
+        return Accounts::where('client_id', $clientId)->get()->map(fn($account) => AccountDto::make($account->toArray()));
     }
 
     public function create(RegisterAccountDto $dto): void

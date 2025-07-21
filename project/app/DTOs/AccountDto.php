@@ -33,7 +33,7 @@ class AccountDto
             paid_value: $account['paid_value'],
             installemnts_paid: $account['installemnts_paid'],
             status: $account['status'] ?? 'pendente',
-            tags: $account['tags'] ?? null,
+            tags: \is_string($account['tags']) ? \json_decode($account['tags'], true) : null,
             created_at: $account['created_at'] ?? null,
             updated_at: $account['updated_at'] ?? null
         );
@@ -51,7 +51,7 @@ class AccountDto
             'paid_value' => $this->paid_value,
             'installemnts_paid' => $this->installemnts_paid,
             'status' => $this->status,
-            'tags' => \json_decode($this->tags, true),
+            'tags' => $this->tags,
             'created_at' => self::isDateTime($this->created_at),
             'updated_at' => self::isDateTime($this->updated_at)
         ];
