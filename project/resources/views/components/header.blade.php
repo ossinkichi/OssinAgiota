@@ -1,8 +1,7 @@
 <header>
-    <img src="../../img/logo.png" alt="logo"">
-    <span>PHP AGIOTA</span>
+    @include('partials.logo')
 
     <div class="{{$class ?? ''}}">
-        {{ $slot}}
+        {{ $slot }}
     </div>
 </header>
