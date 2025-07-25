@@ -8,5 +8,7 @@
 </head>
 <body>
     @include('components.header')
+
+    @include('components.form-login')
 </body>
 </html>
