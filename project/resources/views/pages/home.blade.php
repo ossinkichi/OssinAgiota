@@ -1,3 +1,3 @@
 @extends('layouts.login')
 
-@section('title', 'Ossin Agiota | Login')
+@section('title', 'Ossin Agiota')

@@ -7,8 +7,20 @@
     <title>{{ @yield('title') }}</title>
 </head>
 <body>
-    @include('components.header')
+    <header>
+    @include('partials.logo')
 
-    @include('components.form-login')
+    @if (isset($slot) && $slot != '')
+        <nav class="{{ $class ?? '' }}">
+            {{ $slot }}
+        </nav>
+    @endif
+
+</header>
+
+
+    <main>
+        @yield('content')
+    </main>
 </body>
 </html>
