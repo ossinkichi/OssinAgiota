@@ -6,21 +6,21 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class header extends Component
+class logo extends Component
 {
     /**
      * Create a new component instance.
      */
-    public function __construct(
-        public string $styleHeader,
-        public string $spanStyle = 'text-2xl font-bold text-white'
-    ) {}
+    public function __construct()
+    {
+        //
+    }
 
     /**
      * Get the view / contents that represent the component.
      */
     public function render(): View|Closure|string
     {
-        return view('components.header');
+        return view('components.logo');
     }
 }

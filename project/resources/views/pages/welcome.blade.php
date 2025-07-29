@@ -3,12 +3,17 @@
 @section('title', 'Bem vindo a Ossin Agiota')
 
 @section('header')
-    <x-header></x-header>
+    <x-header style-header="border-b-2 border-[#E5E8EB] pl-9 pr-9"></x-header>
 @endsection
 
 @section('content')
-    <h3 class="text-red-800">Seja bem vindo(a) ao Ossin agiota.</h3>
-    <p>Uma aplicação que visa ajudar você a ter melhor gerenciamento de suas cobranças.</p>
 
-    <a class="text-red-800" href="{{ url('#') }}">Entrar</a>
+    <div class="flex flex-col items-center justify-center gap-14 mt-16">
+        <div class="flex flex-col items-center justify-center">
+            <h3 class="text-2xl font-bold">Seja bem vindo(a) ao Ossin agiota.</h3>
+        </div>
+
+        @include('layouts.formLogin')
+    </div>
+
 @endsection

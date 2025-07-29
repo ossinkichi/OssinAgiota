@@ -1,6 +1,6 @@
-<label class="{{ $labelClass ?? '' }}">
-    @if (isset($label))
-        <span class="block mb-1 text-sm font-medium text-gray-700">{{ $label }}</span>
+<label class="{{ $labelClass }}">
+    @if (isset($labelTxt))
+        {{ $labelTxt }}
     @endif
-
+    $outher
 </label>

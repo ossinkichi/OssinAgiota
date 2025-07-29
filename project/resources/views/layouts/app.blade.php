@@ -13,7 +13,7 @@
     <title>@yield('title')</title>
 </head>
 
-<body class="bg-amber-50">
+<body class="bg-[#1A1A1A] text-white">
 
     @yield('header')
 
