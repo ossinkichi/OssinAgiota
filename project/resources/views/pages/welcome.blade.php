@@ -7,8 +7,8 @@
 @endsection
 
 @section('content')
-    <h3 class="text-red-100">Seja bem vindo(a) ao Ossin agiota.</h3>
+    <h3 class="text-red-800">Seja bem vindo(a) ao Ossin agiota.</h3>
     <p>Uma aplicação que visa ajudar você a ter melhor gerenciamento de suas cobranças.</p>
 
-    <a class="no-underline" href="{{ url('#') }}">Entrar</a>
+    <a class="text-red-800" href="{{ url('#') }}">Entrar</a>
 @endsection
