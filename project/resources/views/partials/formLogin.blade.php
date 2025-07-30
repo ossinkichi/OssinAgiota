@@ -1,12 +1,14 @@
-<div class="border-2 border-white w-xl">
-    <form action="" class="flex flex-col items-center gap-4 w-ful p-3">
+<div class="w-xl">
+    <form method="POST" id="form-login" class="flex flex-col items-center gap-6 w-ful p-3">
         <div class="w-md">
             <x-input label-txt="Usúario" input-name="user" input-placeholder="Digite seu nome de usuário"></x-input>
         </div>
         <div class="w-md">
             <x-input label-txt="Senha" input-type="password" input-name="password" input-placeholder="Digite sua senha"></x-input>
         </div>
-        <button class="bg-lime-600 p-3 font-semibold text-lg rounded w-md">Entrar</button>
-        <p>Primeiro acesso? <a href="{{ url('#') }}">Cadastrar-se</a> </p>
+
+        <button class="cursor-pointer block bg-lime-700 p-3 font-semibold text-lg rounded w-md hover:bg-lime-600">Entrar</button>
+
+        <span>Primeiro acesso? Consulte o tecnico responsavel. </span>
     </form>
 </div>

@@ -24,16 +24,5 @@ class AppServiceProvider extends ServiceProvider
         Route::prefix('api')
             ->middleware('api')
             ->group(base_path('routes/api.php'));
-
-        Blade::directive('viteOrFallback', function ($expression) {
-            return "<?php
-            if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot'))) {
-                echo @vite($expression);
-            } else {
-                echo '<link rel=\"stylesheet\" href=\"' . asset('css/tailwind.css') . '\">';
-                echo '<script src=\"' . asset('js/app.js') . '\" defer></script>';
-            }
-            ?>";
-        });
     }
 }

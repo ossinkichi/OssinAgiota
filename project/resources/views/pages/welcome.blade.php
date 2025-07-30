@@ -8,12 +8,14 @@
 
 @section('content')
 
-    <div class="flex flex-col items-center justify-center gap-14 mt-16">
+    <div class="flex flex-col items-center justify-center gap-10 mt-16">
         <div class="flex flex-col items-center justify-center">
-            <h3 class="text-2xl font-bold">Seja bem vindo(a) ao Ossin agiota.</h3>
+            <h3 class="text-2xl font-bold">Seja bem vindo(a) ao Ossin agiota!</h3>
         </div>
 
-        @include('layouts.formLogin')
+        @include('partials.formLogin')
     </div>
 
 @endsection
+
+@vite(['resources/js/request-login.js'])
