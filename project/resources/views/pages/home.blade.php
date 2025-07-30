@@ -3,17 +3,11 @@
 @section('title', 'Ossin Agiota')
 
 @section('header')
-    <x-header>
-        <nav>
-            <ul class="flex space-x-4">
-                <li><a href="{{ route('home') }}" class="text-white">Inicio</a></li>
-                <li><a href="{{ route('users.index') }}" class="text-white">Clientes</a></li>
-                <li><a href="{{ route('loans.index') }}" class="text-white">Despesas</a></li>
-            </ul>
-        </nav>
-    </x-header>
+    <x-header-with-navigate style-header="border-b-2 border-[#E5E8EB] pl-9 pr-9">
+
+    </x-header-with-navigate>
 @endsection
 
-@section('content')
+{{-- @section('content')
     <h3>Bem-vindo(a) {{ $user.name }}</h3>
-@endsection
+@endsection --}}

@@ -19,7 +19,6 @@ class RegisterUserRequest extends FormRequest
             'name' => 'required|string|max:255',
             'email' => 'email|nullable',
             'password' => 'required|string|min:6',
-            'password_confirmation' => 'required|string|min:6|same:password'
         ];
     }
 
@@ -33,10 +32,6 @@ class RegisterUserRequest extends FormRequest
             'password.required' => 'O campo senha é obrigatório.',
             'password.string' => 'O campo senha deve ser uma string.',
             'password.min' => 'A senha deve ter pelo menos 6 caracteres.',
-            'password_confirmation.required' => 'A confirmação da senha é obrigatória.',
-            'password_confirmation.string' => 'A confirmação da senha deve ser uma string.',
-            'password_confirmation.min' => 'A confirmação da senha deve ter pelo menos 6 caracteres.',
-            'password_confirmation.same' => 'A confirmação da senha deve ser igual à senha.'
         ];
     }
 

@@ -14,7 +14,19 @@
         </div>
 
         @include('partials.formLogin')
+
+        <span id="alert" class="text-gray-200 bg-red-500 p-2 rounded text-center hidden"></span>
     </div>
+
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $erro)
+                <li>{{ $erro }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 
 @endsection
 

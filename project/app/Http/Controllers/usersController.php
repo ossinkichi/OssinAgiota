@@ -10,6 +10,7 @@ use App\Http\Requests\LoginUserRequest;
 use App\Http\Requests\RegisterUserRequest;
 use App\Http\Requests\ShowUserRequest;
 use App\Http\Requests\UpdateUserRequest;
+use Illuminate\Routing\Controller;
 
 class UsersController extends Controller
 {
@@ -34,6 +35,7 @@ class UsersController extends Controller
         }
     }
 
+    // possivelmente irá ser inultilizada
     public function create(RegisterUserRequest $req, UserService $service): JsonResponse
     {
         try {
@@ -50,7 +52,7 @@ class UsersController extends Controller
         }
     }
 
-    public function login(LoginUserRequest $req, UserService $service): JsonResponse
+    public function login(LoginUserRequest $req, UserService $service)
     {
         try {
             $user = $service->login($req->toDTO());
@@ -61,9 +63,9 @@ class UsersController extends Controller
                 'user' => $user->JsonSerialize(),
             ], 200);
         } catch (\Throwable $e) {
+
             return \response()->json(data: [
-                'message' => 'Erro ao logar usuário: ' . $e->getMessage(),
-                'exception' => $e->getMessage(),
+                'message' => $e->getMessage(),
                 'file' => $e->getFile(),
                 'line' => $e->getLine()
             ], status: 500);
