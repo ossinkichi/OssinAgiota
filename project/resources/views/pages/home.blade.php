@@ -3,9 +3,11 @@
 @section('title', 'Ossin Agiota')
 
 @section('header')
-    <x-header-with-navigate style-header="border-b-2 border-[#E5E8EB] pl-9 pr-9">
-
-    </x-header-with-navigate>
+    <x-header style-header="border-b-2 border-[#E5E8EB] pl-9 pr-9">
+        <div class="search">
+            <x-input></x-input>
+        </div>
+    </x-header>
 @endsection
 
 {{-- @section('content')
