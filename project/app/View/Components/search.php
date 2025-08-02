@@ -6,23 +6,20 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class headerWithNavigate extends Component
+class search extends Component
 {
     /**
      * Create a new component instance.
      */
     public function __construct(
-        public ?string $styleHeader,
-        public string $spanStyle = 'text-2xl font-bold text-white'
-    ) {
-        //
-    }
+        public ?string $searchClass = 'bg-[#363636] flex items-center justify-center p-2 pr-3 pl-3 rounded-lg w-auto h-10 hover:border-1 hover:border-[#E5E8EB]'
+    ) {}
 
     /**
      * Get the view / contents that represent the component.
      */
     public function render(): View|Closure|string
     {
-        return view('components.header-with-navigate');
+        return view('components.search');
     }
 }

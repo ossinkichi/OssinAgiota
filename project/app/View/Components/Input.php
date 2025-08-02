@@ -13,7 +13,7 @@ class Input extends Component
      */
     public function __construct(
         public ?string $labelClass = 'text-sm font-semibold text-gray-300',
-        public string $labelTxt,
+        public ?string $labelTxt,
         public ?string $inputType = 'text',
         public string $inputName = '',
         public ?string $inputId,
