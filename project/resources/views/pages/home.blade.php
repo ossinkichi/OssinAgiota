@@ -17,4 +17,11 @@
     <div class="h-auto w-full border-2 border-[#E5E8EB] rounded-lg p-6 flex justify-center">
         <x-search search-class="bg-[#363636] flex justify-center w-full rounded-md p-3"></x-search>
     </div>
+    <table>
+        <thead>
+            <tr>
+
+            </tr>
+        </thead>
+    </table>
 @endsection
