@@ -3,13 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\DTOs\AccountDto;
+use App\DTOs\RegisterAccountDto;
 use App\Http\Requests\PaidAccountRequest;
-use App\Http\Requests\GetAccountRequest;
 use App\Http\Requests\RegisterAccountRequest;
 use App\Http\Requests\UpdateAccountRequest;
 use App\Services\AccountService;
 use Illuminate\Http\JsonResponse;
-use PDO;
 
 class AccountsController extends Controller
 {
@@ -40,7 +39,6 @@ class AccountsController extends Controller
             return \response()->json(data: [], status: 201);
         } catch (\Throwable $e) {
             return \response()->json(data: [
-                'error' => 'Erro ao cadastrar a conta',
                 'exception' => $e->getMessage(),
                 'file' => $e->getFile(),
                 'line' => $e->getLine()
@@ -77,6 +75,22 @@ class AccountsController extends Controller
                 'file' => $e->getFile(),
                 'line' => $e->getLine()
             ], status: 422);
+        }
+    }
+
+    private function createAccounts(RegisterAccountDto $account)
+    {
+        $accounts = [];
+        for ($i = 0; $i < $account->installments; $i++) {
+            $accounts[] = [
+                'client_id' => $account->clientId,
+                'description' => $account->description,
+                'value' => round($account->value / $account->installments, 2),
+                'installment' => '1/' . ($i + 1),
+                'date_of_paid' => now()->addMonths($i),
+                'status' => 'pending',
+                'tags' => json_encode($account->tags ?? [])
+            ];
         }
     }
 }
