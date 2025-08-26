@@ -9,8 +9,8 @@ class RegisterAccountDto
         public ?string $description = null,
         public string $value,
         public int $installments = 1,
-        public string $date_of_paid,
-        public ?string $status = 'pendente',
+        public string $due_date,
+        public ?string $status = 'pending',
         public ?array $tags = []
     ) {}
 }

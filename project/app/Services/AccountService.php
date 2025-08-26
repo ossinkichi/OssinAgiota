@@ -19,16 +19,15 @@ class AccountService
         return Accounts::where('client_id', $clientId)->get()->map(fn($account) => AccountDto::make($account->toArray()));
     }
 
-    public function create(RegisterAccountDto $dto, $accounts = []): void
+    public function create(RegisterAccountDto $dto): void
     {
-        // Accounts::insert($accounts);
 
         Accounts::create([
             'client_id' => $dto->clientId,
             'description' => $dto->description,
             'value' => $dto->value,
             'installment' => $dto->installments,
-            'due_date' => $dto->date_of_paid,
+            'due_date' => $dto->due_date,
             'status' => $dto->status,
             'tags' => json_encode($dto->tags ?? [])
         ]);

@@ -52,7 +52,7 @@ class RegisterAccountRequest extends FormRequest
             description: $this->input('description'),
             value: $this->input('value'),
             installments: $this->input('installments'),
-            date_of_paid: $this->input('date_of_paid'),
+            due_date: $this->input('due_date'),
             tags: $this->input('tags')
         );
     }

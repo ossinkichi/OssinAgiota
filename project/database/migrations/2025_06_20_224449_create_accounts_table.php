@@ -16,9 +16,9 @@ return new class extends Migration
             $table->integer('client_id');
             $table->text('description')->nullable();
             $table->decimal('value', 15, 2)->default(0.00);
-            $table->string('installment');
+            $table->string('installments');
             $table->string('due_date');
-            $table->string('status')->default('pendente');
+            $table->string('status')->default('pending');
             $table->json('tags')->nullable();
             $table->timestamps();
         });
