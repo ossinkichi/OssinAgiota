@@ -1,6 +1,6 @@
 # OssinAgiota
 
-Uma aplicação que visa te ajudar a ter controle sobre suas cobranças.
+[![](agiota.png)](https://www.canva.com/design/DAGOhcQdjQE/rijrVWD9CZ9jScgFwdygdw/edit?utm_content=DAGOhcQdjQE&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
 
 #### Segue abaixo os requisitos para ultilização da api:
 
