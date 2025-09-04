@@ -16,6 +16,8 @@ return new class extends Migration
             $table->integer('user_id');
             $table->string('description');
             $table->longText('observation')->nullable();
+            $table->decimal('amount', 15, 2);
+            $table->date('expense_date');
             $table->json('tags')->nullable();
             $table->timestamps();
         });

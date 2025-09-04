@@ -2,10 +2,12 @@
 
 namespace App\Services;
 
-class Expenses
+use App\DTOs\RegisterExpensesDto;
+
+class ExpensesService
 {
     public function getAll() {}
-    public function create() {}
+    public function create(RegisterExpensesDto $expensesDto) {}
     public function update() {}
     public function pay() {}
 }
