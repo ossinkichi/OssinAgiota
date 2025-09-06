@@ -2,7 +2,7 @@
 
 namespace App\DTOs;
 
-class Expenses
+class PayExpensesDto
 {
     public function __construct(
 

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->longText('observation')->nullable();
             $table->decimal('amount', 15, 2);
             $table->date('expense_date');
+            $table->boolean('fixed')->default(false);
             $table->json('tags')->nullable();
             $table->timestamps();
         });

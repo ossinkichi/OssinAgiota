@@ -10,6 +10,7 @@ class RegisterExpensesDto
         public ?string $observation,
         public string $amount,
         public string $expense_date,
+        public ?bool $fixed = false,
         public ?array $tags = null,
     ) {}
 }

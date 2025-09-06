@@ -29,17 +29,8 @@ class ClientDto
         );
     }
 
-    public function JsonSerialize():array
+    public function JsonSerialize(): array
     {
-        return [
-            'id' => $this->id,
-            'name' => $this->name,
-            'email' => $this->email,
-            'phone_1' => $this->phone_1,
-            'phone_2' => $this->phone_2,
-            'address' => $this->address,
-            'observation' => $this->observation,
-            'tags' => $this->tags
-        ];
+        return get_object_vars($this);
     }
 }
