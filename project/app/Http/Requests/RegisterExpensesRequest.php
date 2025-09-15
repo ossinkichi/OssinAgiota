@@ -19,6 +19,8 @@ class RegisterExpensesRequest extends FormRequest
             'observation' => 'nullable|string',
             'amount' => 'required|numeric|min:0.01',
             'expense_date' => 'required|date',
+            'fixed' => 'nullable|boolean',
+            'repeat' => 'nullable|integer|min:2',
             'tags' => 'nullable|array',
             'tags.*' => 'integer|exists:tags,id',
         ];
@@ -37,6 +39,8 @@ class RegisterExpensesRequest extends FormRequest
             observation: $this->input('observation'),
             amount: $this->input('amount'),
             expense_date: $this->input('expense_date'),
+            fixed: $this->input('fixed', false),
+            repeat: $this->input('repeat', 0),
             tags: $this->input('tags', []),
         );
     }

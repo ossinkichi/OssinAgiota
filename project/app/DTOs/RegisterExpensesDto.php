@@ -11,6 +11,7 @@ class RegisterExpensesDto
         public string $amount,
         public string $expense_date,
         public ?bool $fixed = false,
+        public ?int $repeat = 0,
         public ?array $tags = null,
     ) {}
 }

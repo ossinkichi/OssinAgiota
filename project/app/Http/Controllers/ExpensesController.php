@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\PayExpensesRequest;
-use App\Http\Requests\RegisterExpensesRequest;
-use App\Services\ExpensesService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use App\DTOs\RegisterExpensesDto;
+use App\Services\ExpensesService;
+use App\Http\Requests\PayExpensesRequest;
+use App\Http\Requests\RegisterExpensesRequest;
 
 class ExpensesController extends Controller
 {
@@ -24,7 +25,9 @@ class ExpensesController extends Controller
     public function create(RegisterExpensesRequest $req, ExpensesService $service)
     {
         try {
-            $service->create($req->toDTO());
+            $expenses = $this->repeatExpense($req->toDTO());
+
+            $service->create($expenses);
 
             return \response()->json(data: [], status: 201);
         } catch (\Throwable $e) {
@@ -33,7 +36,7 @@ class ExpensesController extends Controller
 
     public function update() {}
 
-    public function pay(PayExpensesRequest $req, ExpensesService $service)
+    public function pay($req, ExpensesService $service)
     {
         try {
             $service->pay($req->toDto);
@@ -42,5 +45,27 @@ class ExpensesController extends Controller
         } catch (\Throwable $th) {
             return \response()->json(data: ['error' => $th->getMessage()], status: 500);
         }
+    }
+
+    private function repeatExpense(RegisterExpensesDto $expenses)
+    {
+        if ($expenses->repeat <= 1) {
+            return [$expenses];
+        }
+        $repeats = [];
+        for ($i = 0; $i < $expenses->repeat; $i++) {
+            $repeats[] =
+                [
+                    'user' => $expenses->user,
+                    'description' => $expenses->description . ' - (' . ($i + 1) . '/' . $expenses->repeat . ')',
+                    'observation' => $expenses->observation,
+                    'amount' => $expenses->amount,
+                    'expense_date' => date('Y-m-d', strtotime($expenses->expense_date . ' + ' . $i . ' month')),
+                    'fixed' => $expenses->fixed,
+                    'tags' => $expenses->tags,
+                ];
+        }
+
+        return $repeats;
     }
 }

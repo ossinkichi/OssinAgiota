@@ -15,9 +15,9 @@ class ExpensesService
         return $expenses->map(fn($expense) => ExpensesDto::make($expense->toArray()));
     }
 
-    public function create(RegisterExpensesDto $expensesDto)
+    public function create(array $expenses)
     {
-        Expenses::insert([]);
+        Expenses::insert($expenses);
     }
     public function update() {}
     public function pay() {}
