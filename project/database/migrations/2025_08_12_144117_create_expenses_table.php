@@ -19,6 +19,7 @@ return new class extends Migration
             $table->decimal('amount', 15, 2);
             $table->date('expense_date');
             $table->boolean('fixed')->default(false);
+            $table->boolean('paid')->default(false);
             $table->json('tags')->nullable();
             $table->timestamps();
         });

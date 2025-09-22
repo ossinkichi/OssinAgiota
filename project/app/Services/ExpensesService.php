@@ -19,6 +19,14 @@ class ExpensesService
     {
         Expenses::insert($expenses);
     }
+
     public function update() {}
-    public function pay() {}
+
+    public function pay(int $user, int $expense)
+    {
+        $model = Expenses::where('user_id', $user)->where('id', $expense)->firstOrFail();
+
+        $model->paid = true;
+        $model->save();
+    }
 }

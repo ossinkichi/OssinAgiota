@@ -2,23 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use App\DTOs\RegisterExpensesDto;
 use App\Services\ExpensesService;
-use App\Http\Requests\PayExpensesRequest;
+use Illuminate\Routing\Controller;
+use App\Exceptions\ControllerExceptions;
+use App\Http\Requests\UpdateExpensesRequest;
 use App\Http\Requests\RegisterExpensesRequest;
+
 
 class ExpensesController extends Controller
 {
+
+    use ControllerExceptions;
+
     public function getAllExpenses(ExpensesService $service, int $user)
     {
         try {
             $expenses = $service->getAll($user);
 
             return response()->json(data: $expenses->map(fn($expense) => $expense->jsonSerialize()), status: 200);
-        } catch (\Throwable $e) {
-            return response()->json(data: ['error' => $e->getMessage()], status: 500);
+        } catch (\Throwable $th) {
+            return ControllerExceptions::fromMessage($th);
         }
     }
 
@@ -30,20 +34,30 @@ class ExpensesController extends Controller
             $service->create($expenses);
 
             return \response()->json(data: [], status: 201);
-        } catch (\Throwable $e) {
+        } catch (\Throwable $th) {
+            return ControllerExceptions::fromMessage($th);
         }
     }
 
-    public function update() {}
-
-    public function pay($req, ExpensesService $service)
+    public function update(UpdateExpensesRequest $req, ExpensesService $service)
     {
         try {
-            $service->pay($req->toDto);
+            $service->update($req->toDTO());
+
+            return \response()->json(data: [])->status(201);
+        } catch (\Throwable $th) {
+            return ControllerExceptions::fromMessage($th);
+        }
+    }
+
+    public function pay(int $user, int $expense, ExpensesService $service)
+    {
+        try {
+            $service->pay(user: $user, expense: $expense);
 
             return \response()->json(data: [], status: 201);
         } catch (\Throwable $th) {
-            return \response()->json(data: ['error' => $th->getMessage()], status: 500);
+            return ControllerExceptions::fromMessage($th);
         }
     }
 
