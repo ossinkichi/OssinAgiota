@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\DTOs\ExpensesDto;
 use App\DTOs\RegisterExpensesDto;
+use App\DTOs\UpdateExpenseDto;
 use App\Models\Expenses;
 
 class ExpensesService
@@ -20,7 +21,15 @@ class ExpensesService
         Expenses::insert($expenses);
     }
 
-    public function update() {}
+    public function update(UpdateExpenseDto $expense)
+    {
+        Expenses::where('id', $expense->id)->where('user_id', $expense->user_id)->update([
+            'amount' => $expense->amount,
+            'description' => $expense->description,
+            'observation' => $expense->observation,
+            'tags' => $expense->tags,
+        ]);
+    }
 
     public function pay(int $user, int $expense)
     {

@@ -6,10 +6,13 @@ class ExpensesDto
 {
     public function __construct(
         public int $id,
-        public string $name,
+        public int $user_id,
         public float $amount,
         public string $expense_date,
-        public ?string $description = null,
+        public string $description,
+        public ?string $observation = null,
+        public bool $fixed,
+        public bool $paid,
         public ?array $tags = [],
         public ?string $created_at = null,
         public ?string $updated_at = null,
@@ -18,14 +21,17 @@ class ExpensesDto
     public static function make(): self
     {
         return new self(
-            id: $this->id,
-            name: $this->name,
-            amount: $this->amount,
-            expense_date: $this->expense_date,
-            description: $this->description,
-            tags: $this->tags,
-            created_at: $this->created_at,
-            updated_at: $this->updated_at,
+            id: self::$id,
+            user_id: self::$user_id,
+            amount: self::$amount,
+            expense_date: self::$expense_date,
+            description: self::$description,
+            observation: self::$observation,
+            fixed: self::$fixed,
+            paid: self::$paid,
+            tags: self::$tags,
+            created_at: self::$created_at,
+            updated_at: self::$updated_at,
         );
     }
 
