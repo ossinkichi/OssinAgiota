@@ -14,7 +14,11 @@ class Expenses extends Model
         'id',
         'describer',
         'observation',
-        'tags'
+        'amount',
+        'expense_date',
+        'fixed',
+        'paid',
+        'tags',
     ];
 
     protected $hidden = [
