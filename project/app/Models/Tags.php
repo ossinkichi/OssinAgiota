@@ -14,6 +14,7 @@ class Tags extends Model
         'id',
         'name',
         'description',
-        'color'
+        'color-text',
+        'color-background'
     ];
 }

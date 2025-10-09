@@ -11,6 +11,9 @@ use function PHPSTORM_META\map;
 
 class TagsController extends Controller
 {
+
+    use ControllerExceptions;
+
     public function getAll(TagService $service)
     {
         try {
@@ -20,7 +23,7 @@ class TagsController extends Controller
                 "data" => $response . map(fn($tag) => $tag->jsonSerialize())
             ], status: 200);
         } catch (\Throwable $th) {
-            return new ControllerExceptions($th);
+            return ControllerExceptions::fromMessage($th);
         }
     }
 
@@ -31,7 +34,7 @@ class TagsController extends Controller
 
             return \response()->json(data: [], status: 201);
         } catch (\Throwable $th) {
-            return new ControllerExceptions($th);
+            return ControllerExceptions::fromMessage($th);
         }
     }
 }

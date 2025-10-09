@@ -7,6 +7,7 @@ class TagDto
     public function __construct(
         public int $id,
         public string $name,
+        public ?string $description,
         public string $color,
         public string $background,
     ) {}
@@ -16,8 +17,9 @@ class TagDto
         return new self(
             id: $tag['id'],
             name: $tag['name'],
-            color: $tag['color'],
-            background: $tag['background'],
+            description: $tag['description'],
+            color: $tag['color-text'],
+            background: $tag['color-background'],
         );
     }
 
