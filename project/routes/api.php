@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\ClientsController;
 use App\Http\Controllers\AccountsController;
+use App\Http\Controllers\ExpensesController;
+use App\Http\Controllers\TagsController;
 
 // User routes
 Route::get('/user/show/{id}', UsersController::class . '@show');
@@ -21,3 +23,13 @@ Route::post('/accounts/create', AccountsController::class . '@create');
 Route::put('/accounts/update', AccountsController::class . '@update');
 Route::put('/accounts/pay', AccountsController::class . '@paid');
 Route::get('/accounts/{client}', AccountsController::class . '@getAllAccountsOfClient');
+
+// Expenses routes
+Route::get('/expenses/{client}', ExpensesController::class . '@getAllExpenses');
+Route::post('/expenses/register', ExpensesController::class . '@create');
+Route::put('/expenses/update', ExpensesController::class . '@update');
+Route::patch('/expenses/pay/{user}/{expense}', ExpensesController::class . '@pay');
+
+// Tags routes
+Route::get('/tags', TagsController::class . '@getAll');
+Route::post('/tags/create', TagsController::class . '@create');
