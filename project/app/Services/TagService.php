@@ -12,7 +12,7 @@ class TagService
 {
     public function getAll()
     {
-        Tags::all()->map(fn($tag) => TagDto::make($tag->toArray()));
+        return Tags::all()->map(fn($tag) => TagDto::make($tag->toArray()));
     }
 
     public function create(RegisterTagDto $tag)
@@ -23,5 +23,21 @@ class TagService
             "color-text" => $tag->text,
             "color-background" => $tag->background
         ]);
+    }
+
+    public function delete($id)
+    {
+        try {
+
+            $tag = Tags::find($id);
+
+            if (!$tag) {
+                throw new \Exception("Tag não encontrada", 404);
+            }
+
+            $tag->delete();
+        } catch (\Throwable $th) {
+            throw new \Exception("Erro ao deletar tag: " . $th->getMessage(), 500);
+        }
     }
 }
