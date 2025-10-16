@@ -6,8 +6,8 @@ class RegisterTagDto
 {
     public function __construct(
         public string $name,
-        public ?string $description,
-        public ?string $text,
-        public ?string $background,
+        public ?string $description = null,
+        public ?string $text = null,
+        public ?string $background = null,
     ) {}
 }

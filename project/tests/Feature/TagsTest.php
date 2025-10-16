@@ -3,18 +3,29 @@
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class TagsTest extends TestCase
 {
-    /**
-     * A basic feature test example.
-     */
-    public function test_example(): void
-    {
-        $response = $this->get('/');
 
-        $response->assertStatus(200);
+    use RefreshDatabase;
+
+    public function testCreate(): void
+    {
+        $this->post('api/tag/register', [
+            'name' => 'Tag Teste',
+        ])->assertJson([])->assertStatus(201);
+    }
+
+
+    public function testgetAll(): void
+    {
+        $this->testCreate();
+        $this->get('api/tags')->assertStatus(200)->assertJson(
+            [
+                'message' => 'Tags encontradas',
+                'data' => []
+            ]
+        );
     }
 }

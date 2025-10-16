@@ -4,12 +4,11 @@ namespace App\Http\Controllers;
 
 use App\DTOs\RegisterTagDto;
 use App\Exceptions\ControllerExceptions;
+use App\Http\Requests\RegisterTagRequest;
 use App\Services\TagService;
 
 class TagsController extends Controller
 {
-
-    use ControllerExceptions;
 
     public function getAll(TagService $service)
     {
@@ -24,10 +23,10 @@ class TagsController extends Controller
         }
     }
 
-    public function create(RegisterTagDto $tag, TagService $service)
+    public function create(RegisterTagRequest $tag, TagService $service)
     {
         try {
-            $service->create($tag);
+            $service->create($tag->toDTO());
 
             return \response()->json(data: [], status: 201);
         } catch (\Throwable $th) {

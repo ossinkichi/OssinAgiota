@@ -12,7 +12,12 @@ class TagService
 {
     public function getAll()
     {
-        return Tags::all()->map(fn($tag) => TagDto::make($tag->toArray()));
+        return Tags::all()->map(
+            fn($tag) =>
+            TagDto::make(
+                $tag->toArray()
+            )
+        );
     }
 
     public function create(RegisterTagDto $tag)

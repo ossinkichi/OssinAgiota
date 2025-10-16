@@ -32,5 +32,5 @@ Route::patch('/expenses/pay/{user}/{expense}', ExpensesController::class . '@pay
 
 // Tags routes
 Route::get('/tags', TagsController::class . '@getAll');
-Route::post('/tags/create', TagsController::class . '@create');
-Route::put('/tags/delete/{tag}', TagsController::class . '@delete');
+Route::post('/tag/register', TagsController::class . '@create');
+Route::put('/tag/delete/{tag}', TagsController::class . '@delete');
