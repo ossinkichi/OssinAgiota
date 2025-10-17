@@ -19,7 +19,7 @@ Route::post('/client/register', ClientsController::class . '@create');
 Route::put('/client/update', ClientsController::class . '@update');
 
 // Account routes
-Route::post('/accounts/create', AccountsController::class . '@create');
+Route::post('/accounts/register', AccountsController::class . '@create');
 Route::put('/accounts/update', AccountsController::class . '@update');
 Route::put('/accounts/pay', AccountsController::class . '@paid');
 Route::get('/accounts/{client}', AccountsController::class . '@getAllAccountsOfClient');

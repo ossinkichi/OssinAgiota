@@ -11,8 +11,6 @@ use Illuminate\Http\JsonResponse;
 class ClientsController extends Controller
 {
 
-    use ControllerExceptions;
-
     public function list(ClientService $service): JsonResponse
     {
         try {

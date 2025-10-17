@@ -8,8 +8,8 @@ class TagDto
         public int $id,
         public string $name,
         public ?string $description,
-        public string $color,
-        public string $background,
+        public ?string $color,
+        public ?string $background,
     ) {}
 
     public static function make(array $tag): self

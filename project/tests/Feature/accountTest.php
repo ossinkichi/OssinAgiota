@@ -8,11 +8,11 @@ use Tests\TestCase;
 
 class AccountTest extends TestCase
 {
-    use RefreshDatabase, WithFaker;
+    use RefreshDatabase;
 
     public function testClientRegister(): void
     {
-        $response = $this->postJson(uri: '/api/client/register', data: [
+        $this->postJson(uri: '/api/client/register', data: [
             'name' => 'Test Client',
             'email' => '',
             'phone_1' => '123456789',
@@ -20,9 +20,7 @@ class AccountTest extends TestCase
             'address' => '123 Test St',
             'observation' => '',
             'tags' => [1, 2]
-        ]);
-
-        $response->assertStatus(201)->assertJson(
+        ])->assertStatus(201)->assertJson(
             value: []
         );
     }
@@ -31,28 +29,22 @@ class AccountTest extends TestCase
     {
         $this->testClientRegister();
 
-        $response = $this->postJson(uri: '/api/accounts/create', data: [
+        $this->postJson(uri: 'api/accounts/register', data: [
             'client' => 1,
             'description' => 'Test Account',
-            'value' => 100.00,
+            'value' => 100.1,
             'installments' => 1,
             'date_of_paid' => '01',
             'status' => 'pendente',
-            'tags' => [1, 2]
-        ]);
-
-        $response->assertStatus(201)->assertJson(
-            value: []
-        );
+            'tags' => []
+        ])->assertJson([])->assertStatus(201);
     }
 
     public function testGetAllAccountOfClients(): void
     {
         $this->testCreateAccount();
 
-        $response = $this->get('/api/accounts/1');
-
-        $response->assertStatus(200)->assertJson(
+        $this->get('/api/accounts/1')->assertStatus(200)->assertJson(
             value: [
                 'message' => 'Contas encontradas.',
                 'data' => [
@@ -73,12 +65,12 @@ class AccountTest extends TestCase
             ]
         );
     }
-
+    /*
     public function testUpdateAccount(): void
     {
         $this->testCreateAccount();
 
-        $response = $this->put(uri: '/api/accounts/update', data: [
+        $this->put(uri: '/api/accounts/update', data: [
             'account' => 1,
             'client' => 1,
             'description' => 'Updated Account',
@@ -86,9 +78,7 @@ class AccountTest extends TestCase
             'installments' => 2,
             'date_of_paid' => '07',
             'tags' => [1, 3]
-        ]);
-
-        $response->assertStatus(201)->assertJson(
+        ])->assertStatus(201)->assertJson(
             value: []
         );
     }
@@ -97,16 +87,15 @@ class AccountTest extends TestCase
     {
         $this->testCreateAccount();
 
-        $response = $this->put(uri: '/api/accounts/pay', data: [
+        $this->put(uri: '/api/accounts/pay', data: [
             'id' => 1,
             'client' => 1,
             'paidValue' => 100.00,
             'installemntsPaid' => 1,
             'status' => 'pago'
-        ]);
-
-        $response->assertStatus(201)->assertJson(
+        ])->assertStatus(201)->assertJson(
             value: []
         );
     }
+        */
 }

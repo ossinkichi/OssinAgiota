@@ -14,6 +14,7 @@ class TagsController extends Controller
     {
         try {
             $response = $service->getAll();
+
             return \response()->json(data: [
                 "message" => "Tags encontradas",
                 "data" => $response->map(fn($tag) => $tag->jsonSerialize())

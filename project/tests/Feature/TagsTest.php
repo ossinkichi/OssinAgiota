@@ -12,7 +12,7 @@ class TagsTest extends TestCase
 
     public function testCreate(): void
     {
-        $this->post('api/tag/register', [
+        $this->postJson('api/tag/register', [
             'name' => 'Tag Teste',
         ])->assertJson([])->assertStatus(201);
     }
@@ -21,11 +21,19 @@ class TagsTest extends TestCase
     public function testgetAll(): void
     {
         $this->testCreate();
-        $this->get('api/tags')->assertStatus(200)->assertJson(
+        $this->get('api/tags')->assertJson(
             [
                 'message' => 'Tags encontradas',
-                'data' => []
+                'data' => [
+                    [
+                        'id' => 1,
+                        'name' => 'Tag Teste',
+                        'description' => null,
+                        'color' => null,
+                        'background' => null,
+                    ]
+                ]
             ]
-        );
+        )->assertStatus(200);
     }
 }
